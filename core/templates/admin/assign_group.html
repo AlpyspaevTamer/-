@@ -1,0 +1,8 @@
+<h2>Назначить группу пользователю: {{ user_obj.username }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+
+    <a href="{% url 'admin_user_list' %}">← Вернуться к списку пользователей</a>
+</form>

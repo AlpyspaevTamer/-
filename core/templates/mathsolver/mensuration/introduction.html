@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Измерения</h1>
+
+  <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+    <p class="text-lg text-gray-700 mb-4">
+      Измерение — это раздел математики, который изучает измерения геометрических фигур 
+      и их параметров, таких как длина, объём, форма, площадь поверхности, боковая поверхность и т.д.
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-8 mb-8">
+    <!-- Различия между 2D и 3D -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Разница между 2D и 3D фигурами</h2>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <h3 class="text-xl font-semibold mb-3 text-blue-600">2D фигуры</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <span class="font-bold mr-2">1.</span>
+              Если фигура ограничена тремя или более прямыми линиями в плоскости, то это 2D фигура
+            </li>
+            <li class="flex items-start">
+              <span class="font-bold mr-2">2.</span>
+              Эти фигуры не имеют глубины или высоты
+            </li>
+            <li class="flex items-start">
+              <span class="font-bold mr-2">3.</span>
+              Эти фигуры имеют только две размерности
+            </li>
+            <li class="flex items-start">
+              <span class="font-bold mr-2">4.</span>
+              Можно измерить их площадь и периметр
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-semibold mb-3 text-green-600">3D фигуры</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <span class="font-bold mr-2">1.</span>
+              Если фигура ограничена поверхностями или плоскостями, то это 3D фигура
+            </li>
+            <li class="flex items-start">
+              <span class="font-bold mr-2">2.</span>
+              В отличие от 2D, они имеют высоту или глубину
+            </li>
+            <li class="flex items-start">
+              <span class="font-bold mr-2">3.</span>
+              Эти фигуры имеют три размерности
+            </li>
+            <li class="flex items-start">
+              <span class="font-bold mr-2">4.</span>
+              Можно измерить их объём, боковую площадь, полную площадь и т.д.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Важные термины -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Важные термины</h2>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Термин</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Единица</th>
+              <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Определение</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-900">Площадь (A)</td>
+              <td class="px-4 py-4 whitespace-nowrap text-gray-500">м² или см²</td>
+              <td class="px-4 py-4 text-gray-700">Площадь, которую занимает замкнутая фигура</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-900">Периметр (P)</td>
+              <td class="px-4 py-4 whitespace-nowrap text-gray-500">м или см</td>
+              <td class="px-4 py-4 text-gray-700">Длина замкнутой линии, ограничивающей фигуру</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-900">Объём (V)</td>
+              <td class="px-4 py-4 whitespace-nowrap text-gray-500">м³ или см³</td>
+              <td class="px-4 py-4 text-gray-700">Пространство, занимаемое 3D фигурой</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-900">Площадь криволинейной поверхности (CSA)</td>
+              <td class="px-4 py-4 whitespace-nowrap text-gray-500">м² или см²</td>
+              <td class="px-4 py-4 text-gray-700">Если есть криволинейная поверхность, то её площадь называется CSA</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-900">Боковая площадь поверхности (LSA)</td>
+              <td class="px-4 py-4 whitespace-nowrap text-gray-500">м² или см²</td>
+              <td class="px-4 py-4 text-gray-700">Суммарная площадь всех боковых поверхностей фигуры</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 whitespace-nowrap font-medium text-gray-900">Полная площадь поверхности (TSA)</td>
+              <td class="px-4 py-4 whitespace-nowrap text-gray-500">м² или см²</td>
+              <td class="px-4 py-4 text-gray-700">Сумма всех криволинейных и боковых поверхностей</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<a href="{% url 'mensuration' %}" 
+   class="fixed top-12 left-12 text-black hover:text-gray-700 transition-colors">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+    </svg>
+</a>
+
+  <!-- Визуальное сравнение -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800 border-b pb-2">Визуальное сравнение</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="border rounded-lg p-4">
+        <h3 class="text-xl font-semibold mb-3 text-blue-600 text-center">2D фигуры</h3>
+        <div class="flex justify-center space-x-6">
+          <div class="text-center">
+            <div class="w-24 h-24 border-2 border-blue-400 mx-auto mb-2 flex items-center justify-center">Квадрат</div>
+            <p class="text-sm text-gray-600">Квадрат</p>
+          </div>
+          <div class="text-center">
+            <div class="w-24 h-24 rounded-full border-2 border-blue-400 mx-auto mb-2 flex items-center justify-center">Круг</div>
+            <p class="text-sm text-gray-600">Круг</p>
+          </div>
+        </div>
+      </div>
+      <div class="border rounded-lg p-4">
+        <h3 class="text-xl font-semibold mb-3 text-green-600 text-center">3D фигуры</h3>
+        <div class="flex justify-center space-x-6">
+          <div class="text-center">
+            <div class="w-24 h-24 bg-gray-100 mx-auto mb-2 flex items-center justify-center">Куб</div>
+            <p class="text-sm text-gray-600">Куб</p>
+          </div>
+          <div class="text-center">
+            <div class="w-24 h-24 bg-gray-100 mx-auto mb-2 flex items-center justify-center">Сфера</div>
+            <p class="text-sm text-gray-600">Сфера</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

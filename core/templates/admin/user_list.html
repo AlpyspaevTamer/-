@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    
+    <a href="/profile/" class="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors mb-6 font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+        </svg>
+        Назад в профиль
+    </a>
+
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">Все зарегистрированные пользователи</h2>
+            <p class="text-gray-500 text-sm">Управление учетными записями и распределение по группам</p>
+        </div>
+        <a href="{% url 'manage_groups' %}" 
+           class="inline-flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors shadow-md">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+            Управление группами
+        </a>
+    </div>
+
+    <div class="bg-white shadow-md rounded-xl overflow-hidden border border-gray-200">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-semibold">
+                    <tr>
+                        <th class="px-6 py-4">Имя пользователя</th>
+                        <th class="px-6 py-4">Email</th>
+                        <th class="px-6 py-4">Дата регистрации</th>
+                        <th class="px-6 py-4">Статус</th>
+                        <th class="px-6 py-4">Группа</th>
+                        <th class="px-6 py-4 text-center" colspan="2">Действия</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 text-gray-700">
+                    {% for u in users %}
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4 font-medium">{{ u.username }}</td>
+                        <td class="px-6 py-4 text-gray-500">{{ u.email }}</td>
+                        <td class="px-6 py-4">{{ u.date_joined|date:"d.m.Y" }}</td>
+                        <td class="px-6 py-4">
+                            {% if u.is_staff %}
+                                <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full font-medium">Админ</span>
+                            {% else %}
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">Пользователь</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if u.group %}
+                                <span class="text-blue-600 font-medium">{{ u.group.name }}</span>
+                            {% else %}
+                                <span class="text-gray-400 italic">Нет группы</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-center whitespace-nowrap">
+                            <a href="{% url 'assign_user_group' u.id %}" 
+                               class="text-indigo-600 hover:text-indigo-900 font-medium text-sm mr-4">Изменить</a>
+                            
+                            <form action="{% url 'delete_user' u.id %}" method="post" class="inline-block" onsubmit="return confirm('Вы уверены, что хотите удалить пользователя {{ u.username }}?');">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-600 hover:text-red-900 font-medium text-sm">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% if is_paginated %}
+    <div class="flex items-center justify-between mt-6 bg-white px-4 py-3 border border-gray-200 rounded-lg shadow-sm">
+        <div class="text-sm text-gray-700">
+            Страница <span class="font-bold">{{ page_obj.number }}</span> из <span class="font-bold">{{ page_obj.paginator.num_pages }}</span>
+        </div>
+        <div class="flex gap-2">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition-colors">Назад</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition-colors">Вперед</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

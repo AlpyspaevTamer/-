@@ -1,0 +1,28 @@
+<h2>Управление учебными группами</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Название группы" required>
+    <input type="text" name="code" placeholder="Код группы" required>
+    <button type="submit">Создать группу</button>
+</form>
+
+<hr>
+
+<h3>Существующие группы:</h3>
+
+<a href="{% url 'admin_user_list' %}">← Вернуться к списку пользователей</a>
+<ul>
+    {% for group in groups %}
+        <li>
+            {{ group.name }} (Код: {{ group.group_code }})
+            
+            <form action="{% url 'delete_group' group.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить группу?');">
+                    Удалить
+                </button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-12">
+    <div class="mb-12">
+        <h1 class="text-3xl font-light text-gray-900 mb-2">Профиль</h1>
+        <div class="flex items-center space-x-6 py-6 border-y border-gray-100">
+            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-xl font-medium text-gray-500">
+                {{ request.user.first_name|first|default:request.user.username|first|upper }}
+            </div>
+            <div>
+                <div class="text-lg font-medium text-gray-900">
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </div>
+                <div class="text-gray-500">{{ request.user.email }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="space-y-2">
+        {% if user.is_staff %}
+        <a href="/staff/users/" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors border border-transparent hover:border-gray-100">
+            Управление пользователями
+        </a>
+        {% endif %}
+
+        <a href="{% url 'logout' %}" class="block px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-100">
+            Выйти
+        </a>
+    </div>
+
+    <div class="mt-12">
+        <a href="{% url 'home' %}" class="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+            ← Вернуться на главную
+        </a>
+    </div>
+</div>
+{% endblock %}

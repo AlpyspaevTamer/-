@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">Редактирование теста: {{ test.title }}</h1>
+
+    <form method="post" id="main-form">
+        {% csrf_token %}
+        
+        <div class="bg-white p-6 rounded-lg shadow mb-6">
+            <h2 class="text-xl font-bold mb-4">Настройки теста</h2>
+            {{ test_form.as_p }}
+        </div>
+
+        <div id="questions-container">
+            {{ question_formset.management_form }}
+            {% for q_form in question_formset %}
+                <div class="question-block border p-6 mb-8 rounded-lg bg-white shadow-sm border-l-4 border-l-blue-500">
+                    {{ q_form.id }}
+                    <div class="mb-4">
+                        <label class="block font-bold text-gray-700">Текст вопроса:</label>
+                        {{ q_form.text|add_class:"w-full border p-2 rounded" }}
+                    </div>
+                    <div class="mb-4">
+                        <label class="block font-bold text-gray-700">Баллы:</label>
+                        {{ q_form.points|add_class:"w-20 border p-2 rounded" }}
+                    </div>
+                    
+                    <div class="answers-container mt-4">
+                        <label class="block font-bold text-gray-700 mb-2">Варианты ответов:</label>
+                        
+                        {# Важно: используем with для корректного доступа к вложенному формсету #}
+                        {% with ans_formset=q_form.nested_answer_formset %}
+                            {{ ans_formset.management_form }}
+                            <div class="space-y-2">
+                                {% for a_form in ans_formset %}
+                                    <div class="flex items-center gap-4 p-2 bg-gray-50 rounded border border-gray-100">
+                                        {# СКРЫТОЕ ПОЛЕ ID - ОБЯЗАТЕЛЬНО ДЛЯ ОБНОВЛЕНИЯ #}
+                                        {{ a_form.id }}
+                                        
+                                        <div class="flex-1">
+                                            {{ a_form.text|add_class:"w-full border p-1 rounded"|attr:"placeholder:Текст ответа" }}
+                                        </div>
+                                        <div class="flex items-center gap-2 px-2">
+                                            <span class="text-sm text-gray-600">Верно:</span>
+                                            {{ a_form.is_correct }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endwith %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg w-full text-lg font-bold hover:bg-blue-700 shadow-lg transition">
+            Сохранить все изменения
+        </button>
+    </form>
+</div>
+{% endblock %}

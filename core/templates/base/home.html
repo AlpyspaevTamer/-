@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-6">
+    
+    <div class="mb-10">
+        <h1 class="text-3xl font-bold text-slate-900">Добро пожаловать, {{ user.first_name|default:user.username }}!</h1>
+        <p class="text-slate-500 mt-1">Сегодня отличный день, чтобы проверить свои знания.</p>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-2xl p-8 shadow-sm flex flex-col md:flex-row items-center gap-8 mb-8">
+        <div class="relative">
+            <div class="w-24 h-24 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-2xl font-bold border-4 border-white shadow-inner">
+                {{ user.first_name|first|default:"U" }}{{ user.last_name|first|default:"S" }}
+            </div>
+        </div>
+        <div class="text-center md:text-left">
+            <h2 class="text-2xl font-semibold text-slate-900">{{ user.last_name }} {{ user.first_name }}</h2>
+            <p class="text-slate-500 text-sm mb-4">Студент • ID: {{ user.id }}</p>
+            <a href="{% url 'profile' %}" class="px-5 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors">
+                Редактировать профиль
+            </a>
+        </div>
+    </div>
+
+    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Доступные модули</h3>
+    <nav class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <a href="{% url 'test_list' %}" class="group relative bg-white border border-slate-200 p-6 rounded-2xl hover:border-indigo-500 hover:shadow-lg transition-all duration-300">
+            <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-4 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900">Тестирование</h3>
+            <p class="text-slate-500 text-sm mt-1">Пройдите онлайн-тесты и закрепите пройденный материал.</p>
+        </a>
+
+        </nav>
+</div>
+{% endblock %}
